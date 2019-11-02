@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mage.crm.dao.OrderDetailsDao" >
+  <resultMap id="BaseResultMap" type="com.mage.crm.vo.OrderDetails" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="goods_num" property="goodsNum" jdbcType="INTEGER" />
+    <result column="unit" property="unit" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="REAL" />
+    <result column="sum" property="sum" jdbcType="REAL" />
+    <result column="is_valid" property="isValid" jdbcType="INTEGER" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, order_id, goods_name, goods_num, unit, price, sum, is_valid, create_date, update_date
+  </sql>
+  <sql id="whereClause" >
+    where 1 = 1
+    <if test="id != null" >
+       and id = #{id,jdbcType=INTEGER}
+    </if>
+    <if test="orderId != null" >
+       and order_id = #{orderId,jdbcType=INTEGER}
+    </if>
+    <if test="goodsName != null" >
+       and goods_name = #{goodsName,jdbcType=VARCHAR}
+    </if>
+    <if test="goodsNum != null" >
+       and goods_num = #{goodsNum,jdbcType=INTEGER}
+    </if>
+    <if test="unit != null" >
+       and unit = #{unit,jdbcType=VARCHAR}
+    </if>
+    <if test="price != null" >
+       and price = #{price,jdbcType=REAL}
+    </if>
+    <if test="sum != null" >
+       and sum = #{sum,jdbcType=REAL}
+    </if>
+    <if test="isValid != null" >
+       and is_valid = #{isValid,jdbcType=INTEGER}
+    </if>
+    <if test="createDate != null" >
+       and create_date = #{createDate,jdbcType=TIMESTAMP}
+    </if>
+    <if test="updateDate != null" >
+       and update_date = #{updateDate,jdbcType=TIMESTAMP}
+    </if>
+  </sql>
+  <sql id="sort" >
+    <if test="orderByStr != null" >
+       order by ${orderByStr}
+    </if>
+  </sql>
+  <sql id="lock" >
+    <if test="lock != null and lock == true" >
+       for update
+    </if>
+  </sql>
+  <select id="get" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_order_details
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="delete" parameterType="java.lang.Integer" >
+    delete from t_order_details
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <select id="count" resultType="java.lang.Long" >
+    select count(1)
+    from t_order_details
+    <include refid="whereClause" />
+  </select>
+  <select id="findOne" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from t_order_details
+    <include refid="whereClause" />
+    <include refid="sort" />
+    <include refid="lock" />
+  </select>
+  <select id="find" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from t_order_details
+    <include refid="whereClause" />
+    <include refid="sort" />
+    <include refid="lock" />
+  </select>
+  <insert id="save" parameterType="com.mage.crm.vo.OrderDetails" useGeneratedKeys="true" keyProperty="id" >
+    insert into t_order_details (order_id, goods_name, goods_num, 
+      unit, price, sum, is_valid, 
+      create_date, update_date)
+    values (#{orderId,jdbcType=INTEGER}, #{goodsName,jdbcType=VARCHAR}, #{goodsNum,jdbcType=INTEGER}, 
+      #{unit,jdbcType=VARCHAR}, #{price,jdbcType=REAL}, #{sum,jdbcType=REAL}, #{isValid,jdbcType=INTEGER}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="saveSte" parameterType="com.mage.crm.vo.OrderDetails" useGeneratedKeys="true" keyProperty="id" >
+    insert into t_order_details
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="goodsName != null" >
+        goods_name,
+      </if>
+      <if test="goodsNum != null" >
+        goods_num,
+      </if>
+      <if test="unit != null" >
+        unit,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="sum != null" >
+        sum,
+      </if>
+      <if test="isValid != null" >
+        is_valid,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsName != null" >
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsNum != null" >
+        #{goodsNum,jdbcType=INTEGER},
+      </if>
+      <if test="unit != null" >
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=REAL},
+      </if>
+      <if test="sum != null" >
+        #{sum,jdbcType=REAL},
+      </if>
+      <if test="isValid != null" >
+        #{isValid,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateSte" parameterType="com.mage.crm.vo.OrderDetails" >
+    update t_order_details
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsName != null" >
+        goods_name = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsNum != null" >
+        goods_num = #{goodsNum,jdbcType=INTEGER},
+      </if>
+      <if test="unit != null" >
+        unit = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=REAL},
+      </if>
+      <if test="sum != null" >
+        sum = #{sum,jdbcType=REAL},
+      </if>
+      <if test="isValid != null" >
+        is_valid = #{isValid,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="update" parameterType="com.mage.crm.vo.OrderDetails" >
+    update t_order_details
+    set order_id = #{orderId,jdbcType=INTEGER},
+      goods_name = #{goodsName,jdbcType=VARCHAR},
+      goods_num = #{goodsNum,jdbcType=INTEGER},
+      unit = #{unit,jdbcType=VARCHAR},
+      price = #{price,jdbcType=REAL},
+      sum = #{sum,jdbcType=REAL},
+      is_valid = #{isValid,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="queryOrderDetailsByOrderId" resultMap="BaseResultMap" parameterType="Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from t_order_details
+    where order_id = #{orderId}
+  </select>
+</mapper>

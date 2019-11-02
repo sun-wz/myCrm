@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mage.crm.dao.RoleDao">
+    <select id="queryRolesByParams" parameterType="roleQuery" resultType="role">
+        select id,role_name as roleName,role_remark as roleRemark,create_date as createDate,update_date as updateDate,
+        is_valid as isValid
+        from t_role
+        <where>
+            is_valid=1
+            <if test="roleName !=null and roleName !=''">
+                and role_name like concat('%',#{roleName},'%')
+            </if>
+        </where>
+
+    </select>
+    <insert id="insert" parameterType="role">
+        insert into t_role (role_name, role_remark, create_date, update_date, is_valid) values (#{roleName},#{roleRemark},#{createDate},#{updateDate},#{isValid});
+    </insert>
+    <update id="update" parameterType="role">
+        UPDATE t_role SET role_name=#{roleName},role_remark=#{roleRemark},update_date=#{updateDate} WHERE id=#{id}
+    </update>
+
+    <delete id="delete" parameterType="role">
+        UPDATE t_role SET is_valid=0 WHERE id=#{id}
+    </delete>
+
+    <select id="queryRoleById" parameterType="int" resultType="role">
+        SELECT id,role_name 'roleName' FROM t_role where is_valid=1 AND id=#{rid};
+    </select>
+</mapper>
